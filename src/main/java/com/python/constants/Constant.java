@@ -10,6 +10,6 @@ public class Constant {
     }
 
     public static class Hosts {
-        public static final String DOCKER_HOST = "http://localhost:4444/wd/hub";
+        public static final String DOCKER_HOST = "http://172.20.0.2:4444/wd/hub";
     }
 }
