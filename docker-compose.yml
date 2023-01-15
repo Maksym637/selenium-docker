@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  selenium-edge:
+    image: selenium/standalone-edge
+    ports:
+      - "4444:4444"
+    restart: always
+#  java-application:
+#    build: .
+#    command: mvn clean test
+#    depends_on:
+#      - selenium-edge

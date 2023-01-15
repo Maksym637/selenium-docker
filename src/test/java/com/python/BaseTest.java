@@ -1,32 +1,29 @@
 package com.python;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.Browser;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
-import java.time.Duration;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-import static com.python.constants.Constant.TimeoutVariables.IMPLICIT_WAIT;
+import static com.python.constants.Constant.Hosts.DOCKER_HOST;
 import static com.python.constants.Constant.Urls.HOME_PAGE;
-import static io.github.bonigarcia.wdm.WebDriverManager.chromedriver;
 
 public class BaseTest {
 
     protected WebDriver driver;
-    protected ChromeOptions options;
 
     @BeforeClass
-    public void setUpDriver() {
-        chromedriver().setup();
+    public void setUpDriver() throws MalformedURLException {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName(Browser.EDGE.browserName());
 
-        options = new ChromeOptions();
-        options.addArguments("--start-maximized");
-        options.addArguments("--disable-notifications");
-
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(IMPLICIT_WAIT));
+        driver = new RemoteWebDriver(new URL(DOCKER_HOST), capabilities);
+        driver.manage().window().maximize();
         driver.get(HOME_PAGE);
     }
 
